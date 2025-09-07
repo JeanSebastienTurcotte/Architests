@@ -1,0 +1,1 @@
+{"key":"build_command","value":["latexmk","-pdf","-f","-g","-bibtex","-deps","-synctex=1","-interaction=nonstopmode","-output-directory=/tmp/b17cc48565ae6cb602a2e65ca011fecf814515ac","quiz_v1.tex"]}

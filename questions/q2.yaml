@@ -1,0 +1,10 @@
+id: q2
+question: "Find the roots of the quadratic equation $x^2 + {{p}}x + {{q}} = 0$."
+answer: "The roots are $x = \\frac{-{{p}} \\pm \\sqrt{ {{p}}^2 - 4{{q}} }}{2}$."
+
+generate_params: |
+  p = randint(1, 6)
+  q = randint(1, 10)
+generate_figure: |
+  p1 = plot(x^2 + {{p}}*x + {{q}}, (x,-10,10))
+  p1.save("{{filename}}")

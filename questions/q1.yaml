@@ -1,0 +1,10 @@
+id: q1
+question: "Compute the value TEST of $a^2 + b^2$ for $a={{a}}$ and $b={{b}}$."
+answer: "{{a**2 + b**2}}"
+solution: "Compute $a^2 + b^2 = {{a}}^2 + {{b}}^2 = {{a**2 + b**2}}$."
+generate_params: |
+  a = randint(1,100)
+  b = randint(1,10)
+generate_figure: |
+  p = plot(x^2 + {{a}}*x + {{b}}, (x,-5,5))
+  p.save("{{filename}}")
