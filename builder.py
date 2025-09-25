@@ -75,9 +75,22 @@ print(json.dumps(data))
 
 # --------------------------------------------------------------------
 
-def render_question(q, version, seed=None, debug=False):
+
+def render_question(q, version, seed=None, debug=False, usecache=False):
     """Render one question: handle per-question seeded generate_params and generate_figure."""
     q_copy = q.copy()
+
+    # Path to the cache file inside a dedicated cache folder
+    cache_folder = "cache"
+    os.makedirs(cache_folder, exist_ok=True)
+    cache_file = os.path.join(cache_folder, "seeds_cache.yaml")
+
+    # Load cache if it exists
+    if usecache and os.path.exists(cache_file):
+        with open(cache_file) as f:
+            cache = yaml.safe_load(f) or {}
+    else:
+        cache = {}
 
     # Derive a deterministic per-question, per-version seed
     if seed is not None:
@@ -85,15 +98,23 @@ def render_question(q, version, seed=None, debug=False):
     else:
         question_seed = None
 
-    # Handle random parameters with Sage using the per-question seed
-    if "generate_params" in q and q["generate_params"]:
-        local_vars = run_sage_code(q["generate_params"], debug=debug, seed=question_seed)
-        q_copy.update(local_vars)
+    # Check if we can use cached parameters
+    cache_key = f"{q['id']}_v{version}"
+    if usecache and cache_key in cache:
+        # Retrieve cached parameter values
+        q_copy.update(cache[cache_key])
+    else:
+        # Handle random parameters with Sage using the per-question seed
+        if "generate_params" in q and q["generate_params"]:
+            local_vars = run_sage_code(q["generate_params"], debug=debug, seed=question_seed)
+            q_copy.update(local_vars)
+            # Save to cache
+            cache[cache_key] = local_vars
+            with open(cache_file, "w") as f:
+                yaml.safe_dump(cache, f)
 
     # Handle figure generation (use Jinja2 to render the Sage code)
-    from jinja2 import Template
-
-	# Inside render_question, for generate_figure:										  
+    # Inside render_question, for generate_figure:                                          
     if "generate_figure" in q and q["generate_figure"]:
         filename = f"figures/{q['id']}_v{version}.png"
         os.makedirs("figures", exist_ok=True)
@@ -101,44 +122,46 @@ def render_question(q, version, seed=None, debug=False):
         # Make the filename available to the figure template
         q_copy["filename"] = filename
 
-        # Render the figure code with Jinja2 so {{var}} is substituted safely
-        sage_template = Template(q["generate_figure"])
-        sage_code = sage_template.render(**q_copy)
+        # Only generate figure if not using cache or figure file missing
+        if not (usecache and os.path.exists(filename)):
+            # Render the figure code with Jinja2 so {{var}} is substituted safely
+            sage_template = Template(q["generate_figure"])
+            sage_code = sage_template.render(**q_copy)
 
-        # Ensure the Sage process uses the same per-question seed (if present)
-        if question_seed is not None:
-            sage_code = f"set_random_seed({question_seed})\n" + sage_code
+            # Ensure the Sage process uses the same per-question seed (if present)
+            if question_seed is not None:
+                sage_code = f"set_random_seed({question_seed})\n" + sage_code
 
-        # Write and run the temporary .sage script
-        with tempfile.NamedTemporaryFile("w", suffix=".sage", delete=False) as tmp:
-            tmp.write(sage_code)
-            tmp_name = tmp.name
+            # Write and run the temporary .sage script
+            with tempfile.NamedTemporaryFile("w", suffix=".sage", delete=False) as tmp:
+                tmp.write(sage_code)
+                tmp_name = tmp.name
 
-        try:
-            # Always capture text output so we can show errors cleanly
-            result = subprocess.run(
-                ["sage", tmp_name], check=True, capture_output=True, text=True
-            )
-            if debug:
-                print(f"[Sage stdout]\n{result.stdout}")
-                print(f"[Sage stderr]\n{result.stderr}")
-        except subprocess.CalledProcessError as e:
-            stderr_output = e.stderr if e.stderr else ""
-            raise SystemExit(
-                f"\n[Error generating figure for question {q['id']}]\n"
-                f"Sage stderr:\n{stderr_output}\n"
-            )
-        finally:
             try:
-                os.remove(tmp_name)
-            except OSError:
-                pass
+                # Always capture text output so we can show errors cleanly
+                result = subprocess.run(
+                    ["sage", tmp_name], check=True, capture_output=True, text=True
+                )
+                if debug:
+                    print(f"[Sage stdout]\n{result.stdout}")
+                    print(f"[Sage stderr]\n{result.stderr}")
+            except subprocess.CalledProcessError as e:
+                stderr_output = e.stderr if e.stderr else ""
+                raise SystemExit(
+                    f"\n[Error generating figure for question {q['id']}]\n"
+                    f"Sage stderr:\n{stderr_output}\n"
+                )
+            finally:
+                try:
+                    os.remove(tmp_name)
+                except OSError:
+                    pass
 
         # Store figure path for LaTeX (use relative-up path as before)
         q_copy["figure"] = f"../{filename}"
 
-
     return q_copy
+
 
 
 # --------------------------------------------------------------------
@@ -182,48 +205,57 @@ def main():
     parser.add_argument("--solutions", action="store_true")
     parser.add_argument("--answers", action="store_true")
     parser.add_argument("--shuffle", action="store_true")
-    parser.add_argument("--regenerate",action="store_true",help="Reuse last seed from config instead of generating new parameters")
+    parser.add_argument("--usecache", action="store_true", help="Use cached parameter values and figures if available")
     parser.add_argument("--seed", type=int, default=None, help="Override all other seed settings")
     parser.add_argument("--debug", action="store_true")
     args = parser.parse_args()
 
-																	  
-    # Load last seed from config
-    with open("config.yaml") as f:
-        config = yaml.safe_load(f)
+    # --- Config setup ---
+    config_file = "config.yaml"
+    if os.path.exists(config_file):
+        with open(config_file) as f:
+            config = yaml.safe_load(f) or {}
+    else:
+        config = {}
+
     last_seed = config.get("last_seed", 12345)
 
-    # Determine seed
+    # --- Determine seed ---
     if args.seed is not None:
         seed = args.seed
-    elif args.regenerate:
+    elif args.usecache:
+        # Reuse last seed
+        seed = last_seed
+    else:
+        # Generate a fresh seed
         random.seed()
         seed = random.randint(1, 100000)
-        # Update last_seed in config
         config["last_seed"] = seed
-        with open("config.yaml", "w") as f:
+        with open(config_file, "w") as f:
             yaml.safe_dump(config, f)
-    else:
-        seed = last_seed
 
-# Seed Python's random for reproducibility in builder												 
+    # Seed Python's RNG for reproducibility
     random.seed(seed)
 
-
+    # --- Load all questions ---
     all_questions = load_questions()
 
-	# Pick which questions					  
+    # Pick which questions
     if args.questions == ["all"]:
         selected = all_questions
     else:
         selected = [q for q in all_questions if q["id"] in args.questions]
 
+    # --- Build versions ---
     for v in range(1, args.versions + 1):
         questions = selected[:]
         if args.shuffle:
             random.shuffle(questions)
 
-        rendered_questions = [render_question(q, version=v, seed=seed, debug=args.debug) for q in questions]
+        rendered_questions = [
+            render_question(q, version=v, seed=seed, debug=args.debug, usecache=args.usecache)
+            for q in questions
+        ]
 
         tex = build_exam(
             rendered_questions,
