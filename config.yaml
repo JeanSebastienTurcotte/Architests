@@ -1,1 +1,24 @@
-last_seed: 33865
+last_seed: 33204
+questions:
+  test1:
+    q1:
+      select: all
+      choose: all
+    q2:
+      select:
+      - v1
+      - v2
+      choose: 1
+    q3:
+      select: all
+      choose: 2
+  test2:
+    q3:
+      select: all
+      choose: 1
+    q2:
+      select:
+      - v1
+      - v2
+      - v3
+      choose: 2

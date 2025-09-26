@@ -1,111 +1,141 @@
-q1_v1:
+q1_variantev1_version1:
   DOT_SAGE: /home/user/.sage/
   SAGE_DOC_SRC: /ext/sage/10.7/src/doc
   SAGE_LOCAL: /ext/sage/10.7/local
   SAGE_ROOT: /ext/sage/10.7
   SAGE_SRC: /ext/sage/10.7/src
-  a: 1
-  b: 3
+  a: 5
+  b: 10
   'false': false
   sage_mode: cmdline
   'true': true
   var: var
-q1_v2:
+q1_variantev1_version2:
   DOT_SAGE: /home/user/.sage/
   SAGE_DOC_SRC: /ext/sage/10.7/src/doc
   SAGE_LOCAL: /ext/sage/10.7/local
   SAGE_ROOT: /ext/sage/10.7
   SAGE_SRC: /ext/sage/10.7/src
-  a: 46
+  a: 4
   b: 2
   'false': false
   sage_mode: cmdline
   'true': true
   var: var
-q1_v3:
+q1_variantev1_version3:
   DOT_SAGE: /home/user/.sage/
   SAGE_DOC_SRC: /ext/sage/10.7/src/doc
   SAGE_LOCAL: /ext/sage/10.7/local
   SAGE_ROOT: /ext/sage/10.7
   SAGE_SRC: /ext/sage/10.7/src
-  a: 77
+  a: 5
   b: 1
   'false': false
   sage_mode: cmdline
   'true': true
   var: var
-q2_v1:
+q1_variantev2_version1:
   DOT_SAGE: /home/user/.sage/
   SAGE_DOC_SRC: /ext/sage/10.7/src/doc
   SAGE_LOCAL: /ext/sage/10.7/local
   SAGE_ROOT: /ext/sage/10.7
   SAGE_SRC: /ext/sage/10.7/src
-  'false': false
-  p: 4
-  q: 10
-  sage_mode: cmdline
-  'true': true
-  var: var
-q2_v2:
-  DOT_SAGE: /home/user/.sage/
-  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
-  SAGE_LOCAL: /ext/sage/10.7/local
-  SAGE_ROOT: /ext/sage/10.7
-  SAGE_SRC: /ext/sage/10.7/src
-  'false': false
-  p: 2
-  q: 6
-  sage_mode: cmdline
-  'true': true
-  var: var
-q2_v3:
-  DOT_SAGE: /home/user/.sage/
-  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
-  SAGE_LOCAL: /ext/sage/10.7/local
-  SAGE_ROOT: /ext/sage/10.7
-  SAGE_SRC: /ext/sage/10.7/src
-  'false': false
-  p: 4
-  q: 2
-  sage_mode: cmdline
-  'true': true
-  var: var
-q3_v1:
-  DOT_SAGE: /home/user/.sage/
-  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
-  SAGE_LOCAL: /ext/sage/10.7/local
-  SAGE_ROOT: /ext/sage/10.7
-  SAGE_SRC: /ext/sage/10.7/src
-  a: 2
-  b: 0
-  c: 1
-  'false': false
-  sage_mode: cmdline
-  'true': true
-  var: var
-q3_v2:
-  DOT_SAGE: /home/user/.sage/
-  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
-  SAGE_LOCAL: /ext/sage/10.7/local
-  SAGE_ROOT: /ext/sage/10.7
-  SAGE_SRC: /ext/sage/10.7/src
-  a: 4
+  a: 7
   b: 2
-  c: 9
   'false': false
   sage_mode: cmdline
   'true': true
   var: var
-q3_v3:
+q1_variantev2_version2:
   DOT_SAGE: /home/user/.sage/
   SAGE_DOC_SRC: /ext/sage/10.7/src/doc
   SAGE_LOCAL: /ext/sage/10.7/local
   SAGE_ROOT: /ext/sage/10.7
   SAGE_SRC: /ext/sage/10.7/src
-  a: 4
-  b: 3
-  c: 1
+  a: 5
+  b: 4
   'false': false
+  sage_mode: cmdline
+  'true': true
+  var: var
+q1_variantev2_version3:
+  DOT_SAGE: /home/user/.sage/
+  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
+  SAGE_LOCAL: /ext/sage/10.7/local
+  SAGE_ROOT: /ext/sage/10.7
+  SAGE_SRC: /ext/sage/10.7/src
+  a: 8
+  b: 2
+  'false': false
+  sage_mode: cmdline
+  'true': true
+  var: var
+q1_variantev3_version1:
+  DOT_SAGE: /home/user/.sage/
+  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
+  SAGE_LOCAL: /ext/sage/10.7/local
+  SAGE_ROOT: /ext/sage/10.7
+  SAGE_SRC: /ext/sage/10.7/src
+  'false': false
+  k: 3
+  sage_mode: cmdline
+  'true': true
+  var: var
+q1_variantev3_version2:
+  DOT_SAGE: /home/user/.sage/
+  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
+  SAGE_LOCAL: /ext/sage/10.7/local
+  SAGE_ROOT: /ext/sage/10.7
+  SAGE_SRC: /ext/sage/10.7/src
+  'false': false
+  k: 3
+  sage_mode: cmdline
+  'true': true
+  var: var
+q1_variantev3_version3:
+  DOT_SAGE: /home/user/.sage/
+  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
+  SAGE_LOCAL: /ext/sage/10.7/local
+  SAGE_ROOT: /ext/sage/10.7
+  SAGE_SRC: /ext/sage/10.7/src
+  'false': false
+  k: 2
+  sage_mode: cmdline
+  'true': true
+  var: var
+q2_variantev1_version1:
+  DOT_SAGE: /home/user/.sage/
+  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
+  SAGE_LOCAL: /ext/sage/10.7/local
+  SAGE_ROOT: /ext/sage/10.7
+  SAGE_SRC: /ext/sage/10.7/src
+  d: 3
+  'false': false
+  s: 5
+  sage_mode: cmdline
+  'true': true
+  var: var
+q2_variantev1_version2:
+  DOT_SAGE: /home/user/.sage/
+  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
+  SAGE_LOCAL: /ext/sage/10.7/local
+  SAGE_ROOT: /ext/sage/10.7
+  SAGE_SRC: /ext/sage/10.7/src
+  d: 3
+  'false': false
+  s: 7
+  sage_mode: cmdline
+  'true': true
+  var: var
+q2_variantev1_version3:
+  DOT_SAGE: /home/user/.sage/
+  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
+  SAGE_LOCAL: /ext/sage/10.7/local
+  SAGE_ROOT: /ext/sage/10.7
+  SAGE_SRC: /ext/sage/10.7/src
+  d: 5
+  'false': false
+  s: 11
   sage_mode: cmdline
   'true': true
   var: var

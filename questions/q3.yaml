@@ -1,17 +1,14 @@
-id: q3
-question: "Compute the derivative of $f(x) = {{a}}x^2 + {{b}}x + {{c}}$."
-answer: "$f'(x) = 2{{a}}x + {{b}}$"
-solution: |
-  Differentiate term by term:
-  \[
-    f'(x) = 2 \cdot {{a}}x + {{b}}.
-  \]
-generate_params: |
-  from random import randint
-  a = randint(1, 5)
-  b = randint(0, 5)
-  c = randint(0, 10)
-generate_figure: |
-  f(x) = {{a}}*x^2 + {{b}}*x + {{c}}
-  p2 = plot(f(x), (x,-5,5))+plot(diff(f(x),x),(x,-5,5))
-  p2.save("{{filename}}")
+id: q3   # Topic: Differentiation
+
+variants:
+  - sub_id: v1   # Power rule
+    question: "NO RANDOM HERE Differentiate the function $f(x) = x^3 + 5x^2$."
+    answer: "$f'(x) = 3x^2 + 10x$"
+
+  - sub_id: v2   # Sum and constant rule
+    question: "NO RANDOM HERE Differentiate $f(x) = 7x^4 - 3x + 5$."
+    answer: "$f'(x) = 28x^3 - 3$"
+
+  - sub_id: v3   # Product rule
+    question: "NO RANDOM HERE Differentiate $f(x) = x^2 \\cdot \\sin(x)$."
+    answer: "$f'(x) = 2x \\sin(x) + x^2 \\cos(x)$"

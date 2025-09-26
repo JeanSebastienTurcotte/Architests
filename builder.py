@@ -7,25 +7,84 @@ import subprocess
 import tempfile
 import yaml
 import json
+import copy
 from jinja2 import Environment, FileSystemLoader, Template
 
 # --------------------------------------------------------------------
-def load_questions():
-    question_files = glob.glob("questions/*.yaml")
-    all_questions = []
+def load_questions(test_config, seed=None):
+    """
+    Load only the questions/variants specified in test_config.
 
-    for qf in question_files:
+    test_config: dict specifying which questions and variants to include.
+    seed: int or None. If provided, ensures deterministic random selection
+          when choose < len(pool).
+    """
+    rng = random.Random(seed) if seed is not None else random
+    all_questions = []
+    for qid, rules in test_config.items():
+        qfile = f"questions/{qid}.yaml"
+        if not os.path.exists(qfile):
+            raise SystemExit(f"Missing question file: {qfile}")
+
         try:
-            with open(qf, "r") as f:
+            with open(qfile, "r") as f:
                 qdata = yaml.safe_load(f)
         except yaml.YAMLError as e:
             raise SystemExit(
-                f"\nYAML parse error in {qf}:\n{e}\n"
+                f"\nYAML parse error in {qfile}:\n{e}\n"
                 "Hint: In double-quoted YAML strings, escape LaTeX backslashes like \\\\sin, \\\\pi, \\\\frac, etc."
             )
-        all_questions.append(qdata)
+
+        # Get all variants
+        if "variants" not in qdata or not qdata["variants"]:
+            raise SystemExit(
+                f"Question file {qfile} must define a non-empty 'variants' list."
+            )
+
+        pool = []
+        for var in qdata["variants"]:
+            if "sub_id" not in var:
+                raise SystemExit(f"Variant in {qfile} is missing required 'sub_id'.")
+            q_variant = {**qdata, **var}
+            q_variant["id"] = qdata["id"]
+            q_variant.pop("variants", None)
+            pool.append(q_variant)
+
+        # --- DEBUG: show pool of sub_ids ---
+        #print(f"[DEBUG] Question {qid} pool of sub_ids: {[v['sub_id'] for v in pool]}")
+
+        # Apply selection rules
+        select_spec = rules.get("select", "all")
+        choose_spec = rules.get("choose", None)
+
+        # --- DEBUG: show select/choose spec ---
+        #print(f"[DEBUG] Question {qid} select_spec: {select_spec}, choose_spec: {choose_spec}")
+
+        if select_spec == "all":
+            selected = pool
+        else:
+            selected = [v for v in pool if v["sub_id"] in select_spec]
+
+        # --- DEBUG: show selected after filtering ---
+        #print(f"[DEBUG] Question {qid} selected after filtering: {[v['sub_id'] for v in selected]}")
+
+        if choose_spec is not None:
+            if choose_spec == "all" or choose_spec >= len(selected):
+                chosen = selected
+            else:
+                chosen = rng.sample(selected, choose_spec)
+        else:
+            chosen = selected
+
+        # --- DEBUG: show chosen variants ---
+        #print(f"[DEBUG] Question {qid} chosen variants: {[v['sub_id'] for v in chosen]}")
+
+        all_questions.extend(chosen)
 
     return all_questions
+
+
+
 
 # --------------------------------------------------------------------
 def run_sage_code(code, debug=False, seed=None):
@@ -86,7 +145,7 @@ def render_question(q, version, seed=None, debug=False, usecache=False):
     cache_file = os.path.join(cache_folder, "seeds_cache.yaml")
 
     # Load cache if it exists
-    if usecache and os.path.exists(cache_file):
+    if os.path.exists(cache_file):
         with open(cache_file) as f:
             cache = yaml.safe_load(f) or {}
     else:
@@ -99,7 +158,7 @@ def render_question(q, version, seed=None, debug=False, usecache=False):
         question_seed = None
 
     # Check if we can use cached parameters
-    cache_key = f"{q['id']}_v{version}"
+    cache_key = f"{q['id']}_variante{q['sub_id']}_version{version}"
     if usecache and cache_key in cache:
         # Retrieve cached parameter values
         q_copy.update(cache[cache_key])
@@ -114,9 +173,9 @@ def render_question(q, version, seed=None, debug=False, usecache=False):
                 yaml.safe_dump(cache, f)
 
     # Handle figure generation (use Jinja2 to render the Sage code)
-    # Inside render_question, for generate_figure:                                          
+    # Inside render_question, for generate_figure:
     if "generate_figure" in q and q["generate_figure"]:
-        filename = f"figures/{q['id']}_v{version}.png"
+        filename = f"figures/{q['id']}_variante{q['sub_id']}_version{version}.png"
         os.makedirs("figures", exist_ok=True)
 
         # Make the filename available to the figure template
@@ -200,7 +259,7 @@ def build_exam(selected_questions, version, show_solutions, show_answers, seed=N
 # --------------------------------------------------------------------
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--questions", nargs="+", default=["all"], help="IDs of questions or 'all'")
+    parser.add_argument("--questions", nargs=1, required=True, help="Subcategory of questions defined in config.yaml (e.g., 'diff', 'lin_alg')",)
     parser.add_argument("--versions", type=int, default=1)
     parser.add_argument("--solutions", action="store_true")
     parser.add_argument("--answers", action="store_true")
@@ -232,21 +291,20 @@ def main():
         seed = random.randint(1, 100000)
         config["last_seed"] = seed
         with open(config_file, "w") as f:
-            yaml.safe_dump(config, f)
-
+            yaml.safe_dump(config, f,sort_keys=False)
     # Seed Python's RNG for reproducibility
     random.seed(seed)
 
-    # --- Load all questions ---
-    all_questions = load_questions()
-
-    # Pick which questions
-    if args.questions == ["all"]:
-        selected = all_questions
-    else:
-        selected = [q for q in all_questions if q["id"] in args.questions]
-
-    # --- Build versions ---
+    # --- Load selected subcategory of questions ---
+    subcategory = args.questions[0]
+    if subcategory not in config.get("questions", {}):
+        raise SystemExit(
+        f"Subcategory '{subcategory}' not found in config.yaml. "
+        f"Available subcategories: {list(config.get('questions', {}).keys())}"
+        )
+    test_config = copy.deepcopy(config.get("questions", {}).get(subcategory, {}))
+    selected = load_questions(test_config,seed)
+# --- Build versions ---
     for v in range(1, args.versions + 1):
         questions = selected[:]
         if args.shuffle:

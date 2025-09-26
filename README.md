@@ -116,3 +116,7 @@ python builder.py --questions q1 q2 --versions 2 --seed 42
     ├── quiz_v2.tex
     ├── ...
 ```
+
+## Construction de la banque de questions
+
+Les fichiers de questions doivent être nommés "id".yaml où "id" est un identifiant aussi présent dans le fichier.
