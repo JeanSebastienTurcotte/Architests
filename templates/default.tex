@@ -1,25 +1,49 @@
 \documentclass[12pt]{exam}
-\usepackage{amsmath,amssymb,graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{enumitem}
 
 \begin{document}
 
 {\small Seed: {{ seed }} \hfill Version {{ version }}}
 
+\vspace{1em}
+
 \begin{questions}
+
 {% for q in questions %}
+% --------------------------------------------------
 \question {{ q.question_fmt }}
+
 {% if q.figure_fmt %}
-\includegraphics[width=0.5\linewidth]{ {{ q.figure_fmt }} }
+  \begin{center}
+    \includegraphics[width=0.6\textwidth]{ {{ q.figure_fmt }} }
+  \end{center}
+{% endif %}
+
+{% if q.type == "tf" %}
+  \begin{itemize}[label={}]
+    \item (A) True
+    \item (B) False
+  \end{itemize}
+
+{% elif q.type == "open" %}
+  \vspace{2\baselineskip}  % blank space for answer
 {% endif %}
 
 {% if show_answers and q.answer_fmt %}
-\\ Answer: {{ q.answer_fmt }}
-{% endif %}
-{% if show_solutions and q.solution_fmt %}
-\\ Solution: {{ q.solution_fmt }}
+ \\ \textbf{Answer:} {{ q.answer_fmt }}
 {% endif %}
 
+{% if show_solutions and q.solution_fmt %}
+  \begin{solution}
+    {{ q.solution_fmt }}
+  \end{solution}
+{% endif %}
+
+\vspace{1em}
 {% endfor %}
+
 \end{questions}
 
 \end{document}

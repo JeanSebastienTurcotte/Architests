@@ -133,12 +133,15 @@ print(json.dumps(data))
 
 
 # --------------------------------------------------------------------
-
+# Extract all data from a question. Returns a question with added info and stuff needed.
 
 def render_question(q, version, seed=None, debug=False, usecache=False):
     """Render one question: handle per-question seeded generate_params and generate_figure."""
     q_copy = q.copy()
-
+    
+        # get type of question - Default type (open-ended)
+        #Supported types: open
+    q_copy["type"] = q.get("type", "open")
     # Path to the cache file inside a dedicated cache folder
     cache_folder = "cache"
     os.makedirs(cache_folder, exist_ok=True)
@@ -224,7 +227,12 @@ def render_question(q, version, seed=None, debug=False, usecache=False):
 
 
 # --------------------------------------------------------------------
-def build_exam(selected_questions, version, show_solutions, show_answers, seed=None, template_file="templates/default.tex"):
+def build_exam(selected_questions, version, show_solutions, show_answers,
+               seed=None, template_file="templates/default.tex"):
+    """
+    Build one exam version in LaTeX using Jinja2 templating.
+    Supports different question types: currently 'tf' and 'open'.
+    """
     env = Environment(
         loader=FileSystemLoader(searchpath="."),
         autoescape=False
@@ -232,18 +240,36 @@ def build_exam(selected_questions, version, show_solutions, show_answers, seed=N
     template = env.get_template(template_file)
 
     questions_for_template = []
+
     for q in selected_questions:
         qd = q.copy()
-        # Render LaTeX text using Jinja2
+        q_type = qd["type"]  # already normalized in render_question
+
+        # Base Latex rendering using Jinja2 for question text and optional fields
         qd["question_fmt"] = Template(q["question"]).render(**q)
-        if "answer" in q:
-            qd["answer_fmt"] = Template(q["answer"]).render(**q)
         if "solution" in q:
             qd["solution_fmt"] = Template(q["solution"]).render(**q)
         if "figure" in q:
             qd["figure_fmt"] = q["figure"]
+
+        # ------------------------------------------------------------
+        # TRUE/FALSE questions
+        # ------------------------------------------------------------
+        if q_type == "tf":
+            qd["options_fmt"] = ["True", "False"]
+            ans_val = qd.get("answer", False)
+            qd["answer_fmt"] = "True" if ans_val else "False"
+
+        # ------------------------------------------------------------
+        # OPEN questions (and all others for now)
+        # ------------------------------------------------------------
+        else:
+            qd["options_fmt"] = []  # no choices to list
+            qd["answer_fmt"] = Template(str(q.get("answer", ""))).render(**q)
+
         questions_for_template.append(qd)
 
+    # Render LaTeX
     tex = template.render(
         version=version,
         seed=seed if seed is not None else "-",
@@ -253,6 +279,7 @@ def build_exam(selected_questions, version, show_solutions, show_answers, seed=N
     )
 
     return tex
+
 
 
 

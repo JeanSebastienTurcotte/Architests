@@ -1,4 +1,5 @@
 id: q2   # Topic: Systems of linear equations
+type: open
 
 variants:
   - sub_id: v1   # Two equations, two variables

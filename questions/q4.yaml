@@ -1,0 +1,24 @@
+id: q4
+type: tf
+#Topic "Properties of matrices"
+
+variants:
+  - sub_id: v1
+    question: "The determinant of a triangular matrix is equal to the product of its diagonal entries."
+    answer: true
+
+  - sub_id: v2
+    question: "If a matrix $A$ is invertible, then its determinant must be zero."
+    answer: false
+
+  - sub_id: v3
+    question: "The trace of a matrix is always equal to the sum of its eigenvalues."
+    answer: true
+  - sub_id: v4
+    generate_params: |
+      load("helpers/tf_randomizer.sage")
+      true_text = "The transpose of a symmetric matrix is equal to itself."
+      false_text = "The transpose of a symmetric matrix is the negative of itself."
+      statement, answer = tf_randomizer(true_text, false_text)
+    question: "{{ statement }}"
+    answer: "{{ answer }}"

@@ -4,8 +4,8 @@ q1_variantev1_version1:
   SAGE_LOCAL: /ext/sage/10.7/local
   SAGE_ROOT: /ext/sage/10.7
   SAGE_SRC: /ext/sage/10.7/src
-  a: 5
-  b: 10
+  a: 1
+  b: 3
   'false': false
   sage_mode: cmdline
   'true': true
@@ -16,8 +16,8 @@ q1_variantev1_version2:
   SAGE_LOCAL: /ext/sage/10.7/local
   SAGE_ROOT: /ext/sage/10.7
   SAGE_SRC: /ext/sage/10.7/src
-  a: 4
-  b: 2
+  a: 2
+  b: 4
   'false': false
   sage_mode: cmdline
   'true': true
@@ -28,8 +28,8 @@ q1_variantev1_version3:
   SAGE_LOCAL: /ext/sage/10.7/local
   SAGE_ROOT: /ext/sage/10.7
   SAGE_SRC: /ext/sage/10.7/src
-  a: 5
-  b: 1
+  a: 2
+  b: 6
   'false': false
   sage_mode: cmdline
   'true': true
@@ -40,7 +40,7 @@ q1_variantev2_version1:
   SAGE_LOCAL: /ext/sage/10.7/local
   SAGE_ROOT: /ext/sage/10.7
   SAGE_SRC: /ext/sage/10.7/src
-  a: 7
+  a: 8
   b: 2
   'false': false
   sage_mode: cmdline
@@ -52,8 +52,8 @@ q1_variantev2_version2:
   SAGE_LOCAL: /ext/sage/10.7/local
   SAGE_ROOT: /ext/sage/10.7
   SAGE_SRC: /ext/sage/10.7/src
-  a: 5
-  b: 4
+  a: 7
+  b: 2
   'false': false
   sage_mode: cmdline
   'true': true
@@ -64,7 +64,7 @@ q1_variantev2_version3:
   SAGE_LOCAL: /ext/sage/10.7/local
   SAGE_ROOT: /ext/sage/10.7
   SAGE_SRC: /ext/sage/10.7/src
-  a: 8
+  a: 2
   b: 2
   'false': false
   sage_mode: cmdline
@@ -77,7 +77,7 @@ q1_variantev3_version1:
   SAGE_ROOT: /ext/sage/10.7
   SAGE_SRC: /ext/sage/10.7/src
   'false': false
-  k: 3
+  k: 5
   sage_mode: cmdline
   'true': true
   var: var
@@ -88,7 +88,7 @@ q1_variantev3_version2:
   SAGE_ROOT: /ext/sage/10.7
   SAGE_SRC: /ext/sage/10.7/src
   'false': false
-  k: 3
+  k: 4
   sage_mode: cmdline
   'true': true
   var: var
@@ -99,7 +99,7 @@ q1_variantev3_version3:
   SAGE_ROOT: /ext/sage/10.7
   SAGE_SRC: /ext/sage/10.7/src
   'false': false
-  k: 2
+  k: 4
   sage_mode: cmdline
   'true': true
   var: var
@@ -111,7 +111,7 @@ q2_variantev1_version1:
   SAGE_SRC: /ext/sage/10.7/src
   d: 3
   'false': false
-  s: 5
+  s: 12
   sage_mode: cmdline
   'true': true
   var: var
@@ -121,9 +121,9 @@ q2_variantev1_version2:
   SAGE_LOCAL: /ext/sage/10.7/local
   SAGE_ROOT: /ext/sage/10.7
   SAGE_SRC: /ext/sage/10.7/src
-  d: 3
+  d: 1
   'false': false
-  s: 7
+  s: 4
   sage_mode: cmdline
   'true': true
   var: var
@@ -133,9 +133,215 @@ q2_variantev1_version3:
   SAGE_LOCAL: /ext/sage/10.7/local
   SAGE_ROOT: /ext/sage/10.7
   SAGE_SRC: /ext/sage/10.7/src
-  d: 5
+  d: 1
   'false': false
-  s: 11
+  s: 7
   sage_mode: cmdline
   'true': true
+  var: var
+q2_variantev2_version1:
+  DOT_SAGE: /home/user/.sage/
+  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
+  SAGE_LOCAL: /ext/sage/10.7/local
+  SAGE_ROOT: /ext/sage/10.7
+  SAGE_SRC: /ext/sage/10.7/src
+  'false': false
+  m: 10
+  n: 8
+  sage_mode: cmdline
+  'true': true
+  var: var
+q2_variantev2_version2:
+  DOT_SAGE: /home/user/.sage/
+  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
+  SAGE_LOCAL: /ext/sage/10.7/local
+  SAGE_ROOT: /ext/sage/10.7
+  SAGE_SRC: /ext/sage/10.7/src
+  'false': false
+  m: 17
+  n: 5
+  sage_mode: cmdline
+  'true': true
+  var: var
+q2_variantev2_version3:
+  DOT_SAGE: /home/user/.sage/
+  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
+  SAGE_LOCAL: /ext/sage/10.7/local
+  SAGE_ROOT: /ext/sage/10.7
+  SAGE_SRC: /ext/sage/10.7/src
+  'false': false
+  m: 19
+  n: 13
+  sage_mode: cmdline
+  'true': true
+  var: var
+q2_variantev3_version1:
+  DOT_SAGE: /home/user/.sage/
+  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
+  SAGE_LOCAL: /ext/sage/10.7/local
+  SAGE_ROOT: /ext/sage/10.7
+  SAGE_SRC: /ext/sage/10.7/src
+  c: 5
+  'false': false
+  sage_mode: cmdline
+  t: 13
+  'true': true
+  var: var
+q2_variantev3_version2:
+  DOT_SAGE: /home/user/.sage/
+  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
+  SAGE_LOCAL: /ext/sage/10.7/local
+  SAGE_ROOT: /ext/sage/10.7
+  SAGE_SRC: /ext/sage/10.7/src
+  c: 3
+  'false': false
+  sage_mode: cmdline
+  t: 17
+  'true': true
+  var: var
+q2_variantev3_version3:
+  DOT_SAGE: /home/user/.sage/
+  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
+  SAGE_LOCAL: /ext/sage/10.7/local
+  SAGE_ROOT: /ext/sage/10.7
+  SAGE_SRC: /ext/sage/10.7/src
+  c: 1
+  'false': false
+  sage_mode: cmdline
+  t: 17
+  'true': true
+  var: var
+q4_variantev4_version1:
+  DOT_SAGE: /home/user/.sage/
+  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
+  SAGE_LOCAL: /ext/sage/10.7/local
+  SAGE_ROOT: /ext/sage/10.7
+  SAGE_SRC: /ext/sage/10.7/src
+  answer: true
+  'false': false
+  false_text: The transpose of a symmetric matrix is the negative of itself.
+  sage_mode: cmdline
+  statement: The transpose of a symmetric matrix is equal to itself.
+  'true': true
+  true_text: The transpose of a symmetric matrix is equal to itself.
+  var: var
+q4_variantev4_version2:
+  DOT_SAGE: /home/user/.sage/
+  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
+  SAGE_LOCAL: /ext/sage/10.7/local
+  SAGE_ROOT: /ext/sage/10.7
+  SAGE_SRC: /ext/sage/10.7/src
+  answer: true
+  'false': false
+  false_text: The transpose of a symmetric matrix is the negative of itself.
+  sage_mode: cmdline
+  statement: The transpose of a symmetric matrix is equal to itself.
+  'true': true
+  true_text: The transpose of a symmetric matrix is equal to itself.
+  var: var
+q4_variantev4_version3:
+  DOT_SAGE: /home/user/.sage/
+  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
+  SAGE_LOCAL: /ext/sage/10.7/local
+  SAGE_ROOT: /ext/sage/10.7
+  SAGE_SRC: /ext/sage/10.7/src
+  answer: false
+  'false': false
+  false_text: The transpose of a symmetric matrix is the negative of itself.
+  sage_mode: cmdline
+  statement: The transpose of a symmetric matrix is the negative of itself.
+  'true': true
+  true_text: The transpose of a symmetric matrix is equal to itself.
+  var: var
+q5_variantev2_version1:
+  DOT_SAGE: /home/user/.sage/
+  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
+  SAGE_LOCAL: /ext/sage/10.7/local
+  SAGE_ROOT: /ext/sage/10.7
+  SAGE_SRC: /ext/sage/10.7/src
+  answer: true
+  'false': false
+  false_text: The determinant of a diagonal matrix equals the sum of its diagonal
+    entries.
+  sage_mode: cmdline
+  statement: The determinant of a diagonal matrix equals the product of its diagonal
+    entries.
+  'true': true
+  true_text: The determinant of a diagonal matrix equals the product of its diagonal
+    entries.
+  var: var
+q5_variantev2_version2:
+  DOT_SAGE: /home/user/.sage/
+  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
+  SAGE_LOCAL: /ext/sage/10.7/local
+  SAGE_ROOT: /ext/sage/10.7
+  SAGE_SRC: /ext/sage/10.7/src
+  answer: true
+  'false': false
+  false_text: The determinant of a diagonal matrix equals the sum of its diagonal
+    entries.
+  sage_mode: cmdline
+  statement: The determinant of a diagonal matrix equals the product of its diagonal
+    entries.
+  'true': true
+  true_text: The determinant of a diagonal matrix equals the product of its diagonal
+    entries.
+  var: var
+q5_variantev2_version3:
+  DOT_SAGE: /home/user/.sage/
+  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
+  SAGE_LOCAL: /ext/sage/10.7/local
+  SAGE_ROOT: /ext/sage/10.7
+  SAGE_SRC: /ext/sage/10.7/src
+  answer: false
+  'false': false
+  false_text: The determinant of a diagonal matrix equals the sum of its diagonal
+    entries.
+  sage_mode: cmdline
+  statement: The determinant of a diagonal matrix equals the sum of its diagonal entries.
+  'true': true
+  true_text: The determinant of a diagonal matrix equals the product of its diagonal
+    entries.
+  var: var
+q5_variantev3_version1:
+  DOT_SAGE: /home/user/.sage/
+  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
+  SAGE_LOCAL: /ext/sage/10.7/local
+  SAGE_ROOT: /ext/sage/10.7
+  SAGE_SRC: /ext/sage/10.7/src
+  answer: true
+  'false': false
+  false_text: If two matrices $A$ and $B$ commute, then $AB = -BA$.
+  sage_mode: cmdline
+  statement: If two matrices $A$ and $B$ commute, then $AB = BA$.
+  'true': true
+  true_text: If two matrices $A$ and $B$ commute, then $AB = BA$.
+  var: var
+q5_variantev3_version2:
+  DOT_SAGE: /home/user/.sage/
+  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
+  SAGE_LOCAL: /ext/sage/10.7/local
+  SAGE_ROOT: /ext/sage/10.7
+  SAGE_SRC: /ext/sage/10.7/src
+  answer: true
+  'false': false
+  false_text: If two matrices $A$ and $B$ commute, then $AB = -BA$.
+  sage_mode: cmdline
+  statement: If two matrices $A$ and $B$ commute, then $AB = BA$.
+  'true': true
+  true_text: If two matrices $A$ and $B$ commute, then $AB = BA$.
+  var: var
+q5_variantev3_version3:
+  DOT_SAGE: /home/user/.sage/
+  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
+  SAGE_LOCAL: /ext/sage/10.7/local
+  SAGE_ROOT: /ext/sage/10.7
+  SAGE_SRC: /ext/sage/10.7/src
+  answer: false
+  'false': false
+  false_text: If two matrices $A$ and $B$ commute, then $AB = -BA$.
+  sage_mode: cmdline
+  statement: If two matrices $A$ and $B$ commute, then $AB = -BA$.
+  'true': true
+  true_text: If two matrices $A$ and $B$ commute, then $AB = BA$.
   var: var

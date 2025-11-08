@@ -1,4 +1,4 @@
-last_seed: 33204
+last_seed: 71296
 questions:
   test1:
     q1:
@@ -15,10 +15,19 @@ questions:
   test2:
     q3:
       select: all
-      choose: 1
+      choose: 2
     q2:
       select:
       - v1
       - v2
       - v3
       choose: 2
+  test3:
+    q5:
+      select: all
+      choose: 2
+    q4:
+      select:
+      - v1
+      - v4
+      choose: all
