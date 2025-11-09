@@ -18,8 +18,8 @@ variants:
     generate_params: |
       load("helpers/tf_randomizer.sage")
 
-      true_text  = "The determinant of a diagonal matrix equals the product of its diagonal entries."
-      false_text = "The determinant of a diagonal matrix equals the sum of its diagonal entries."
+      true_text  = "The determinant of a diagonal matrix equals the product of its diagonal entries. from Q5"
+      false_text = "The determinant of a diagonal matrix equals the sum of its diagonal entries. from Q5"
 
       statement, answer = tf_randomizer(true_text, false_text)
     question: "{{ statement }}"

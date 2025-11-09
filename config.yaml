@@ -1,4 +1,4 @@
-last_seed: 71296
+last_seed: 6455
 questions:
   test1:
     q1:
@@ -23,11 +23,19 @@ questions:
       - v3
       choose: 2
   test3:
+    q2:
+      select:
+      - v1
+      - v2
+      - v3
+      choose: 2
+      grouping: parts
     q5:
       select: all
       choose: 2
+      grouping: none
     q4:
-      select:
-      - v1
-      - v4
+      select: all
       choose: all
+      grouping: parts
+      group_text: 'Answer True or False for each of the following statements:'

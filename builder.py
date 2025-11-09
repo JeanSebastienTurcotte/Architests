@@ -57,6 +57,14 @@ def load_questions(test_config, seed=None):
         select_spec = rules.get("select", "all")
         choose_spec = rules.get("choose", None)
 
+        # ------------------------------------------------------------
+        # NEW: grouping and group_text control (output formatting)
+        # ------------------------------------------------------------
+        # These are optional in config and default to 'none' (no grouping)
+        # and an empty group_text (no intro line).
+        grouping = rules.get("grouping", "none")
+        group_text = rules.get("group_text", "")
+
         # --- DEBUG: show select/choose spec ---
         #print(f"[DEBUG] Question {qid} select_spec: {select_spec}, choose_spec: {choose_spec}")
 
@@ -79,9 +87,17 @@ def load_questions(test_config, seed=None):
         # --- DEBUG: show chosen variants ---
         #print(f"[DEBUG] Question {qid} chosen variants: {[v['sub_id'] for v in chosen]}")
 
+        # ------------------------------------------------------------
+        # Attach config-level attributes (grouping + group_text)
+        # ------------------------------------------------------------
+        for q in chosen:
+            q["grouping"] = grouping
+            q["group_text"] = group_text
+
         all_questions.extend(chosen)
 
     return all_questions
+
 
 
 
@@ -231,7 +247,11 @@ def build_exam(selected_questions, version, show_solutions, show_answers,
                seed=None, template_file="templates/default.tex"):
     """
     Build one exam version in LaTeX using Jinja2 templating.
+
     Supports different question types: currently 'tf' and 'open'.
+    Also supports grouping behavior ('none' or 'parts') for numbering style.
+    When grouping == "parts", multiple variants of the same question ID
+    are grouped under a single \\question with subparts (a), (b), (c).
     """
     env = Environment(
         loader=FileSystemLoader(searchpath="."),
@@ -239,13 +259,15 @@ def build_exam(selected_questions, version, show_solutions, show_answers,
     )
     template = env.get_template(template_file)
 
+    # ------------------------------------------------------------
+    # Preprocess questions and render text
+    # ------------------------------------------------------------
     questions_for_template = []
-
     for q in selected_questions:
         qd = q.copy()
         q_type = qd["type"]  # already normalized in render_question
 
-        # Base Latex rendering using Jinja2 for question text and optional fields
+        # Base LaTeX rendering using Jinja2 for question text and optional fields
         qd["question_fmt"] = Template(q["question"]).render(**q)
         if "solution" in q:
             qd["solution_fmt"] = Template(q["solution"]).render(**q)
@@ -269,16 +291,41 @@ def build_exam(selected_questions, version, show_solutions, show_answers,
 
         questions_for_template.append(qd)
 
+    # ------------------------------------------------------------
+    # Group questions when grouping == "parts"
+    # ------------------------------------------------------------
+    grouped_questions = []
+    for q in questions_for_template:
+        grouping = q.get("grouping", "none")
+
+        if grouping == "parts":
+            # Start a new grouped question if this is the first or a new ID
+            if not grouped_questions or grouped_questions[-1]["id"] != q["id"]:
+                # Initialize the group container with its first subquestion
+                q_group = q.copy()
+                q_group["subquestions"] = [q]
+                grouped_questions.append(q_group)
+            else:
+                # Add additional subquestion to the last group
+                grouped_questions[-1]["subquestions"].append(q)
+        else:
+            # Non-grouped question: append as is
+            grouped_questions.append(q)
+
+    # ------------------------------------------------------------
     # Render LaTeX
+    # ------------------------------------------------------------
     tex = template.render(
         version=version,
         seed=seed if seed is not None else "-",
-        questions=questions_for_template,
+        questions=grouped_questions,
         show_answers=show_answers,
         show_solutions=show_solutions,
     )
 
     return tex
+
+
 
 
 

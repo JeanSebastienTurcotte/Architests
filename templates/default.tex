@@ -13,32 +13,75 @@
 
 {% for q in questions %}
 % --------------------------------------------------
-\question {{ q.question_fmt }}
+% Handle grouped questions (grouping == parts)
+% --------------------------------------------------
+{% if q.grouping == "parts" %}
+  \question {{ q.group_text | default("") }}
 
-{% if q.figure_fmt %}
-  \begin{center}
-    \includegraphics[width=0.6\textwidth]{ {{ q.figure_fmt }} }
-  \end{center}
-{% endif %}
+  \begin{parts}
+  {% for subq in q.subquestions %}
+    \part {{ subq.question_fmt }}
 
-{% if q.type == "tf" %}
-  \begin{itemize}[label={}]
-    \item (A) True
-    \item (B) False
-  \end{itemize}
+    {% if subq.figure_fmt %}
+      \begin{center}
+        \includegraphics[width=0.6\textwidth]{ {{ subq.figure_fmt }} }
+      \end{center}
+    {% endif %}
 
-{% elif q.type == "open" %}
-  \vspace{2\baselineskip}  % blank space for answer
-{% endif %}
+    {% if subq.type == "tf" %}
+      \begin{itemize}[label={}]
+        \item (A) True
+        \item (B) False
+      \end{itemize}
+    {% elif subq.type == "open" %}
+      \vspace{2\baselineskip}
+    {% endif %}
 
-{% if show_answers and q.answer_fmt %}
- \\ \textbf{Answer:} {{ q.answer_fmt }}
-{% endif %}
+    {% if show_answers %}
+      \textbf{Answer:} {{ subq.answer_fmt }}
+    {% endif %}
 
-{% if show_solutions and q.solution_fmt %}
-  \begin{solution}
-    {{ q.solution_fmt }}
-  \end{solution}
+    {% if show_solutions and subq.solution_fmt %}
+      \begin{solution}
+        {{ subq.solution_fmt }}
+      \end{solution}
+    {% endif %}
+
+  {% endfor %}
+  \end{parts}
+
+
+{% else %}
+% --------------------------------------------------
+% Handle regular questions (grouping == none)
+% --------------------------------------------------
+  \question {{ q.question_fmt }}
+
+  {% if q.figure_fmt %}
+    \begin{center}
+      \includegraphics[width=0.6\textwidth]{ {{ q.figure_fmt }} }
+    \end{center}
+  {% endif %}
+
+  {% if q.type == "tf" %}
+    \begin{itemize}[label={}]
+      \item (A) True
+      \item (B) False
+    \end{itemize}
+  {% elif q.type == "open" %}
+    \vspace{2\baselineskip}
+  {% endif %}
+
+  {% if show_answers %}
+    \textbf{Answer:} {{ q.answer_fmt }}
+  {% endif %}
+
+  {% if show_solutions and q.solution_fmt %}
+    \begin{solution}
+      {{ q.solution_fmt }}
+    \end{solution}
+  {% endif %}
+
 {% endif %}
 
 \vspace{1em}
