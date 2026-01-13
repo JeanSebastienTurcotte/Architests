@@ -109,7 +109,7 @@ q2_variantev1_version1:
   SAGE_LOCAL: /ext/sage/10.7/local
   SAGE_ROOT: /ext/sage/10.7
   SAGE_SRC: /ext/sage/10.7/src
-  d: 4
+  d: 1
   'false': false
   s: 5
   sage_mode: cmdline
@@ -121,9 +121,9 @@ q2_variantev1_version2:
   SAGE_LOCAL: /ext/sage/10.7/local
   SAGE_ROOT: /ext/sage/10.7
   SAGE_SRC: /ext/sage/10.7/src
-  d: 4
+  d: 3
   'false': false
-  s: 12
+  s: 8
   sage_mode: cmdline
   'true': true
   var: var
@@ -133,9 +133,21 @@ q2_variantev1_version3:
   SAGE_LOCAL: /ext/sage/10.7/local
   SAGE_ROOT: /ext/sage/10.7
   SAGE_SRC: /ext/sage/10.7/src
-  d: 4
+  d: 2
   'false': false
   s: 11
+  sage_mode: cmdline
+  'true': true
+  var: var
+q2_variantev1_version4:
+  DOT_SAGE: /home/user/.sage/
+  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
+  SAGE_LOCAL: /ext/sage/10.7/local
+  SAGE_ROOT: /ext/sage/10.7
+  SAGE_SRC: /ext/sage/10.7/src
+  d: 2
+  'false': false
+  s: 4
   sage_mode: cmdline
   'true': true
   var: var
@@ -147,7 +159,7 @@ q2_variantev2_version1:
   SAGE_SRC: /ext/sage/10.7/src
   'false': false
   m: 7
-  n: 14
+  n: 9
   sage_mode: cmdline
   'true': true
   var: var
@@ -158,8 +170,8 @@ q2_variantev2_version2:
   SAGE_ROOT: /ext/sage/10.7
   SAGE_SRC: /ext/sage/10.7/src
   'false': false
-  m: 18
-  n: 8
+  m: 13
+  n: 5
   sage_mode: cmdline
   'true': true
   var: var
@@ -170,8 +182,20 @@ q2_variantev2_version3:
   SAGE_ROOT: /ext/sage/10.7
   SAGE_SRC: /ext/sage/10.7/src
   'false': false
-  m: 19
-  n: 10
+  m: 15
+  n: 8
+  sage_mode: cmdline
+  'true': true
+  var: var
+q2_variantev2_version4:
+  DOT_SAGE: /home/user/.sage/
+  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
+  SAGE_LOCAL: /ext/sage/10.7/local
+  SAGE_ROOT: /ext/sage/10.7
+  SAGE_SRC: /ext/sage/10.7/src
+  'false': false
+  m: 20
+  n: 9
   sage_mode: cmdline
   'true': true
   var: var
@@ -181,10 +205,10 @@ q2_variantev3_version1:
   SAGE_LOCAL: /ext/sage/10.7/local
   SAGE_ROOT: /ext/sage/10.7
   SAGE_SRC: /ext/sage/10.7/src
-  c: 5
+  c: 1
   'false': false
   sage_mode: cmdline
-  t: 13
+  t: 17
   'true': true
   var: var
 q2_variantev3_version2:
@@ -193,10 +217,10 @@ q2_variantev3_version2:
   SAGE_LOCAL: /ext/sage/10.7/local
   SAGE_ROOT: /ext/sage/10.7
   SAGE_SRC: /ext/sage/10.7/src
-  c: 3
+  c: 2
   'false': false
   sage_mode: cmdline
-  t: 17
+  t: 15
   'true': true
   var: var
 q2_variantev3_version3:
@@ -205,10 +229,22 @@ q2_variantev3_version3:
   SAGE_LOCAL: /ext/sage/10.7/local
   SAGE_ROOT: /ext/sage/10.7
   SAGE_SRC: /ext/sage/10.7/src
-  c: 1
+  c: 2
   'false': false
   sage_mode: cmdline
-  t: 17
+  t: 20
+  'true': true
+  var: var
+q2_variantev3_version4:
+  DOT_SAGE: /home/user/.sage/
+  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
+  SAGE_LOCAL: /ext/sage/10.7/local
+  SAGE_ROOT: /ext/sage/10.7
+  SAGE_SRC: /ext/sage/10.7/src
+  c: 4
+  'false': false
+  sage_mode: cmdline
+  t: 18
   'true': true
   var: var
 q4_variantev4_version1:
@@ -231,11 +267,11 @@ q4_variantev4_version2:
   SAGE_LOCAL: /ext/sage/10.7/local
   SAGE_ROOT: /ext/sage/10.7
   SAGE_SRC: /ext/sage/10.7/src
-  answer: false
+  answer: true
   'false': false
   false_text: The transpose of a symmetric matrix is the negative of itself.
   sage_mode: cmdline
-  statement: The transpose of a symmetric matrix is the negative of itself.
+  statement: The transpose of a symmetric matrix is equal to itself.
   'true': true
   true_text: The transpose of a symmetric matrix is equal to itself.
   var: var
@@ -253,7 +289,7 @@ q4_variantev4_version3:
   'true': true
   true_text: The transpose of a symmetric matrix is equal to itself.
   var: var
-q5_variantev1_version1:
+q4_variantev4_version4:
   DOT_SAGE: /home/user/.sage/
   SAGE_DOC_SRC: /ext/sage/10.7/src/doc
   SAGE_LOCAL: /ext/sage/10.7/local
@@ -261,9 +297,23 @@ q5_variantev1_version1:
   SAGE_SRC: /ext/sage/10.7/src
   answer: false
   'false': false
+  false_text: The transpose of a symmetric matrix is the negative of itself.
+  sage_mode: cmdline
+  statement: The transpose of a symmetric matrix is the negative of itself.
+  'true': true
+  true_text: The transpose of a symmetric matrix is equal to itself.
+  var: var
+q5_variantev1_version1:
+  DOT_SAGE: /home/user/.sage/
+  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
+  SAGE_LOCAL: /ext/sage/10.7/local
+  SAGE_ROOT: /ext/sage/10.7
+  SAGE_SRC: /ext/sage/10.7/src
+  answer: true
+  'false': false
   false_text: The inverse of an invertible matrix never exists.
   sage_mode: cmdline
-  statement: The inverse of an invertible matrix never exists.
+  statement: The inverse of an invertible matrix always exists.
   'true': true
   true_text: The inverse of an invertible matrix always exists.
   var: var
@@ -295,19 +345,33 @@ q5_variantev1_version3:
   'true': true
   true_text: The inverse of an invertible matrix always exists.
   var: var
+q5_variantev1_version4:
+  DOT_SAGE: /home/user/.sage/
+  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
+  SAGE_LOCAL: /ext/sage/10.7/local
+  SAGE_ROOT: /ext/sage/10.7
+  SAGE_SRC: /ext/sage/10.7/src
+  answer: true
+  'false': false
+  false_text: The inverse of an invertible matrix never exists.
+  sage_mode: cmdline
+  statement: The inverse of an invertible matrix always exists.
+  'true': true
+  true_text: The inverse of an invertible matrix always exists.
+  var: var
 q5_variantev2_version1:
   DOT_SAGE: /home/user/.sage/
   SAGE_DOC_SRC: /ext/sage/10.7/src/doc
   SAGE_LOCAL: /ext/sage/10.7/local
   SAGE_ROOT: /ext/sage/10.7
   SAGE_SRC: /ext/sage/10.7/src
-  answer: false
+  answer: true
   'false': false
   false_text: The determinant of a diagonal matrix equals the sum of its diagonal
     entries. from Q5
   sage_mode: cmdline
-  statement: The determinant of a diagonal matrix equals the sum of its diagonal entries.
-    from Q5
+  statement: The determinant of a diagonal matrix equals the product of its diagonal
+    entries. from Q5
   'true': true
   true_text: The determinant of a diagonal matrix equals the product of its diagonal
     entries. from Q5
@@ -335,6 +399,23 @@ q5_variantev2_version3:
   SAGE_LOCAL: /ext/sage/10.7/local
   SAGE_ROOT: /ext/sage/10.7
   SAGE_SRC: /ext/sage/10.7/src
+  answer: false
+  'false': false
+  false_text: The determinant of a diagonal matrix equals the sum of its diagonal
+    entries. from Q5
+  sage_mode: cmdline
+  statement: The determinant of a diagonal matrix equals the sum of its diagonal entries.
+    from Q5
+  'true': true
+  true_text: The determinant of a diagonal matrix equals the product of its diagonal
+    entries. from Q5
+  var: var
+q5_variantev2_version4:
+  DOT_SAGE: /home/user/.sage/
+  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
+  SAGE_LOCAL: /ext/sage/10.7/local
+  SAGE_ROOT: /ext/sage/10.7
+  SAGE_SRC: /ext/sage/10.7/src
   answer: true
   'false': false
   false_text: The determinant of a diagonal matrix equals the sum of its diagonal
@@ -352,11 +433,11 @@ q5_variantev3_version1:
   SAGE_LOCAL: /ext/sage/10.7/local
   SAGE_ROOT: /ext/sage/10.7
   SAGE_SRC: /ext/sage/10.7/src
-  answer: true
+  answer: false
   'false': false
   false_text: If two matrices $A$ and $B$ commute, then $AB = -BA$.
   sage_mode: cmdline
-  statement: If two matrices $A$ and $B$ commute, then $AB = BA$.
+  statement: If two matrices $A$ and $B$ commute, then $AB = -BA$.
   'true': true
   true_text: If two matrices $A$ and $B$ commute, then $AB = BA$.
   var: var
@@ -380,11 +461,25 @@ q5_variantev3_version3:
   SAGE_LOCAL: /ext/sage/10.7/local
   SAGE_ROOT: /ext/sage/10.7
   SAGE_SRC: /ext/sage/10.7/src
-  answer: false
+  answer: true
   'false': false
   false_text: If two matrices $A$ and $B$ commute, then $AB = -BA$.
   sage_mode: cmdline
-  statement: If two matrices $A$ and $B$ commute, then $AB = -BA$.
+  statement: If two matrices $A$ and $B$ commute, then $AB = BA$.
+  'true': true
+  true_text: If two matrices $A$ and $B$ commute, then $AB = BA$.
+  var: var
+q5_variantev3_version4:
+  DOT_SAGE: /home/user/.sage/
+  SAGE_DOC_SRC: /ext/sage/10.7/src/doc
+  SAGE_LOCAL: /ext/sage/10.7/local
+  SAGE_ROOT: /ext/sage/10.7
+  SAGE_SRC: /ext/sage/10.7/src
+  answer: true
+  'false': false
+  false_text: If two matrices $A$ and $B$ commute, then $AB = -BA$.
+  sage_mode: cmdline
+  statement: If two matrices $A$ and $B$ commute, then $AB = BA$.
   'true': true
   true_text: If two matrices $A$ and $B$ commute, then $AB = BA$.
   var: var

@@ -58,12 +58,13 @@ def load_questions(test_config, seed=None):
         choose_spec = rules.get("choose", None)
 
         # ------------------------------------------------------------
-        # NEW: grouping and group_text control (output formatting)
+        # NEW: grouping, group_text, and n_wrong control
         # ------------------------------------------------------------
-        # These are optional in config and default to 'none' (no grouping)
+		# These are optional in config and default to 'none' (no grouping)
         # and an empty group_text (no intro line).
         grouping = rules.get("grouping", "none")
         group_text = rules.get("group_text", "")
+        n_wrong = rules.get("n_wrong", None)
 
         # --- DEBUG: show select/choose spec ---
         #print(f"[DEBUG] Question {qid} select_spec: {select_spec}, choose_spec: {choose_spec}")
@@ -88,20 +89,16 @@ def load_questions(test_config, seed=None):
         #print(f"[DEBUG] Question {qid} chosen variants: {[v['sub_id'] for v in chosen]}")
 
         # ------------------------------------------------------------
-        # Attach config-level attributes (grouping + group_text)
+        # Attach config-level attributes (grouping + group_text + n_wrong)
         # ------------------------------------------------------------
         for q in chosen:
             q["grouping"] = grouping
             q["group_text"] = group_text
+            q["n_wrong"] = n_wrong
 
         all_questions.extend(chosen)
 
     return all_questions
-
-
-
-
-
 # --------------------------------------------------------------------
 def run_sage_code(code, debug=False, seed=None):
     """Run a small Sage snippet that defines variables for LaTeX templating.
@@ -152,12 +149,21 @@ print(json.dumps(data))
 # Extract all data from a question. Returns a question with added info and stuff needed.
 
 def render_question(q, version, seed=None, debug=False, usecache=False):
-    """Render one question: handle per-question seeded generate_params and generate_figure."""
+    """
+    Render one question: handle per-question seeded generate_params and generate_figure.
+
+    Supported types:
+      - open
+      - tf
+      - mcq
+    """
     q_copy = q.copy()
-    
-        # get type of question - Default type (open-ended)
-        #Supported types: open
+
+    # ------------------------------------------------------------
+    # Get type of question (default: open-ended)
+    # ------------------------------------------------------------
     q_copy["type"] = q.get("type", "open")
+
     # Path to the cache file inside a dedicated cache folder
     cache_folder = "cache"
     os.makedirs(cache_folder, exist_ok=True)
@@ -172,7 +178,8 @@ def render_question(q, version, seed=None, debug=False, usecache=False):
 
     # Derive a deterministic per-question, per-version seed
     if seed is not None:
-        question_seed = seed + (hash(q["id"]) % 10000) + version
+        question_seed = seed + (hash(q["id"]) % 10000)+(hash(q["sub_id"]) % 10000) + version
+        #print(question_seed)
     else:
         question_seed = None
 
@@ -184,15 +191,47 @@ def render_question(q, version, seed=None, debug=False, usecache=False):
     else:
         # Handle random parameters with Sage using the per-question seed
         if "generate_params" in q and q["generate_params"]:
-            local_vars = run_sage_code(q["generate_params"], debug=debug, seed=question_seed)
+            local_vars = run_sage_code(
+                q["generate_params"], debug=debug, seed=question_seed
+            )
             q_copy.update(local_vars)
             # Save to cache
             cache[cache_key] = local_vars
             with open(cache_file, "w") as f:
                 yaml.safe_dump(cache, f)
 
+    # ------------------------------------------------------------
+    # MCQ preprocessing (choice selection + shuffling)
+    # ------------------------------------------------------------
+    if q_copy["type"] == "mcq":
+        # Normalize correct answers to a list
+        correct = q.get("answer", [])
+        if not isinstance(correct, list):
+            correct = [correct]
+
+        wrong = q.get("wrong_ans", [])
+        n_wrong = q.get("n_wrong", None)
+
+        # Limit number of wrong answers if requested
+        if n_wrong is not None and n_wrong < len(wrong):
+            rng = random.Random(question_seed) if question_seed is not None else random
+            wrong = rng.sample(wrong, n_wrong)
+
+        # Combine and shuffle all options deterministically
+        options = []
+        for ans in correct:
+            options.append({"text": ans, "is_correct": True})
+        for ans in wrong:
+            options.append({"text": ans, "is_correct": False})
+
+        rng = random.Random(question_seed) if question_seed is not None else random
+        rng.shuffle(options)
+
+        q_copy["options"] = options
+
+    # ------------------------------------------------------------
     # Handle figure generation (use Jinja2 to render the Sage code)
-    # Inside render_question, for generate_figure:
+    # ------------------------------------------------------------
     if "generate_figure" in q and q["generate_figure"]:
         filename = f"figures/{q['id']}_variante{q['sub_id']}_version{version}.png"
         os.makedirs("figures", exist_ok=True)
@@ -242,13 +281,14 @@ def render_question(q, version, seed=None, debug=False, usecache=False):
 
 
 
+
 # --------------------------------------------------------------------
 def build_exam(selected_questions, version, show_solutions, show_answers,
-               seed=None, template_file="templates/default.tex"):
+               seed=None, template_file="templates/default.tex", mcq_layout="choices"):
     """
     Build one exam version in LaTeX using Jinja2 templating.
 
-    Supports different question types: currently 'tf' and 'open'.
+    Supports different question types: currently 'tf', 'open', and 'mcq'.
     Also supports grouping behavior ('none' or 'parts') for numbering style.
     When grouping == "parts", multiple variants of the same question ID
     are grouped under a single \\question with subparts (a), (b), (c).
@@ -281,6 +321,15 @@ def build_exam(selected_questions, version, show_solutions, show_answers,
             qd["options_fmt"] = ["True", "False"]
             ans_val = qd.get("answer", False)
             qd["answer_fmt"] = "True" if ans_val else "False"
+
+        # ------------------------------------------------------------
+        # MULTIPLE-CHOICE questions
+        # ------------------------------------------------------------
+        elif q_type == "mcq":
+            # Options already shuffled in render_question
+            qd["options"] = q.get("options", [])
+            print(qd["options"])
+            #qd["correct_answers"] = q.get("correct_answers", []) #Done in options data now
 
         # ------------------------------------------------------------
         # OPEN questions (and all others for now)
@@ -321,6 +370,7 @@ def build_exam(selected_questions, version, show_solutions, show_answers,
         questions=grouped_questions,
         show_answers=show_answers,
         show_solutions=show_solutions,
+        mcq_layout=mcq_layout,
     )
 
     return tex
@@ -352,6 +402,8 @@ def main():
         config = {}
 
     last_seed = config.get("last_seed", 12345)
+    # Load optional MCQ layout
+    mcq_layout = config.get("mcq_layout", "choices")
 
     # --- Determine seed ---
     if args.seed is not None:
@@ -395,7 +447,10 @@ def main():
             show_solutions=args.solutions,
             show_answers=args.answers,
             seed=seed,
+            template_file="templates/default.tex",
+            mcq_layout=mcq_layout,
         )
+
 
         outdir = "output"
         os.makedirs(outdir, exist_ok=True)

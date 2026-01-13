@@ -1,4 +1,5 @@
-last_seed: 6455
+last_seed: 65877
+mcq_layout: choices
 questions:
   test1:
     q1:
@@ -36,6 +37,12 @@ questions:
       grouping: none
     q4:
       select: all
-      choose: all
+      choose: 2
       grouping: parts
       group_text: 'Answer True or False for each of the following statements:'
+    q6:
+      select: all
+      choose: 3
+      grouping: none
+      group_text: 'Choose the correct answer for each question below:'
+      n_wrong: 2
