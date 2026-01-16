@@ -2,6 +2,7 @@
 
 Cet outil génère des versions aléatoires de tests en format LaTeX à partir d'une banque de questions. Cela inclut les fonctionnalités suivantes:
 
+
 - paramètres aléatoires (via Sage)
 - Création de graphique automatique (via Sage)
 - Plusieurs versions différentes avec les mêmes questions
@@ -11,6 +12,7 @@ Cet outil génère des versions aléatoires de tests en format LaTeX à partir d
 ---
 
 ## Utilisation
+
 
 Dans le dossier 'questions', créer les questions souhaitées. Un exemple de questions est disponible dans le fichier.
 
@@ -81,17 +83,20 @@ python builder.py [options]
 
 Générer 3 versions du test appelé `test1` en mélangeant l'ordre des question:
 
+
 ```
 python builder.py --questions test1 --versions 3 --shuffle
 ```
 
 Corriger une erreur dans le texte d'une question et  **réutiliser les valeurs en cache**:
 
+
 ```
 python builder.py --questions test1 --usecache --shuffle
 ```
 
 Regénérer la version de `test2` avec la graine globale `42`.
+
 
 ```
 python builder.py --questions test2 --versions 2 --seed 42
@@ -127,6 +132,8 @@ python builder.py --questions test2 --versions 2 --seed 42
 
 Les fichiers de questions doivent être nommés "id".yaml où "id" est un identifiant aussi présent dans le fichier.
 
+
+
 ### Types de questions
 
 Différents types de questions sont possibles.
@@ -151,3 +158,4 @@ generate_params: |
 
 #### Choix multiples
 
+On définit la ou les bonnes réponses, des mauvaises réponses et un nombre de choix à proposer. Le constructeur s'assure d'avoir au moins une bonne réponse parmi les choix proposés.

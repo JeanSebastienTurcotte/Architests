@@ -40,4 +40,4 @@ questions:
       choose: 3
       grouping: none
       group_text: 'Choose the correct answer for each question below:'
-      n_wrong: 2 #Le nombre de mauvaises réponses à inclure. Utile seulement pour une question à choix multiples (sans effet sinon).
+      n_ans: 2 #Le nombre de choix à de réponses à inclure. Utile seulement pour une question à choix multiples (sans effet sinon). On est assuré d'avoir au moins une bonne réponse.

@@ -23,9 +23,12 @@ variants: #Différentes variantes de la question
       - "$-\\sin x$"
       - "$-\\cos x$"
 
-  - sub_id: v3 #À tester
+  - sub_id: v3 #Plus d'une bonne réponse. Pour l'instant, toutes les bonnes réponses sont inclues dans les choix.
     question: "Donner tous les choix qui sont 1."
-    answer: "[$1$,un,$e^0$]"
+    answer: 
+      - "$1$"
+      - "un"
+      - "$e^0$"
     wrong_ans:
       - "$0$"
       - "$\\tfrac{\\pi}{2}$"

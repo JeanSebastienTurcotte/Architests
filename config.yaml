@@ -1,10 +1,10 @@
-last_seed: 86542
+last_seed: 22616
 mcq_layout: choices
 questions:
   test1:
     q1:
       select: all
-      choose: 1
+      choose: 2
     q2:
       select:
       - v1
@@ -13,3 +13,4 @@ questions:
     q3:
       select: all
       choose: all
+      n_ans: 3

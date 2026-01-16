@@ -69,7 +69,7 @@ def load_questions(test_config, seed=None):
         # and an empty group_text (no intro line).
         grouping = rules.get("grouping", "none")
         group_text = rules.get("group_text", "")
-        n_wrong = rules.get("n_wrong", None)
+        n_ans = rules.get("n_ans", None)
 
         # --- DEBUG: show select/choose spec ---
         #print(f"[DEBUG] Question {qid} select_spec: {select_spec}, choose_spec: {choose_spec}")
@@ -95,12 +95,12 @@ def load_questions(test_config, seed=None):
         #print(f"[DEBUG] Question {qid} chosen variants: {[v['sub_id'] for v in chosen]}")
 
         # ------------------------------------------------------------
-        # Attach config-level attributes (grouping + group_text + n_wrong)
+        # Attach config-level attributes (grouping + group_text + n_ans)
         # ------------------------------------------------------------
         for q in chosen:
             q["grouping"] = grouping
             q["group_text"] = group_text
-            q["n_wrong"] = n_wrong
+            q["n_ans"] = n_ans
 
         all_questions.extend(chosen)
 
@@ -223,25 +223,34 @@ def render_question(q, version, seed=None, debug=False, usecache=False):
     if q_copy["type"] == "mcq":
         # On met les bonnes réponses dans une liste
         correct = q.get("answer", [])
+        #print('correct initial=',correct)
         if not isinstance(correct, list):
             correct = [correct]
-
+        #print('correct 2=',correct)
         wrong = q.get("wrong_ans", [])
-        n_wrong = q.get("n_wrong", None)
-
+        #print('Wrong',wrong)
+        n_ans = q.get("n_ans", None)
+        #On ajoute au moins une bonne réponse
+        rng = random.Random(question_seed) if question_seed is not None else random
+        answer1=rng.sample(correct,1)
+        #correct.remove(answer1)
         # On sélectionne les mauvaises réponses parmi les possibilités
-        if n_wrong is not None and n_wrong < len(wrong):
-            rng = random.Random(question_seed) if question_seed is not None else random
-            wrong = rng.sample(wrong, n_wrong)
+        ## TEST pour plus d'une bonne réponse
+        #if n_ans is not None and n_ans < len(wrong):
+        #    rng = random.Random(question_seed) if question_seed is not None else random
+        #    wrong = rng.sample(wrong, n_ans)
 
         # On combine les options et on mélange l'ordre.
         options = []
         for ans in correct:
-            options.append({"text": ans, "is_correct": True})
+            options.append({"text": ans, "is_correct": True}) if ans!=answer1[0] else None
         for ans in wrong:
             options.append({"text": ans, "is_correct": False})
-
-        rng = random.Random(question_seed) if question_seed is not None else random
+        if n_ans is not None and n_ans<= len(options):
+            options=rng.sample(options,n_ans-1)
+        options.append({"text":answer1[0],"is_correct":True})
+        #rng = random.Random(question_seed) if question_seed is not None else random
+        #print(options)
         rng.shuffle(options)
 
         q_copy["options"] = options
