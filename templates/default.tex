@@ -9,14 +9,23 @@
 \usepackage{amsmath, amssymb}
 \usepackage{graphicx}
 \usepackage{enumitem}
+\usepackage[T1]{fontenc} 
+\usepackage[french]{babel} %Pour la langue
+
+% Numéro de la version et du seed dans la dernière page
+\footer{\iflastpage{\tiny Seed: {{ seed }} }}{}{\tiny Version : {{ version }} }
+
+\title { {{title}} }
+\author{ {{ author}} }
+\date { {{date}} }
 
 \begin{document}
-%La ligne ci-dessous donne les informations permettant de reproduire une version spécifique.
-{\tiny Seed: {{ seed }} \hfill Version {{ version }}}
 
+\maketitle
 \vspace{1em}
 
 \begin{questions}
+
 % On effectue une boucle pour chacune des questions faisant partie du test.
 
 {% for q in questions %}

@@ -1,5 +1,8 @@
-last_seed: 22616
+last_seed: 2103
 mcq_layout: choices
+author: "Jean-S\xE9bastien Turcotte"
+title: Test - exemple
+date: 12 janvier 2035 # manuel | \today | ...
 questions:
   test1:
     q1:

@@ -3,6 +3,12 @@ last_seed: 50843
 #Choix de mise en page pour les choix de réponses. Les versions onepar donnent un choix par ligne.
 mcq_layout: choices
 # choices | oneparchoices | checkboxes | oneparcheckboxes
+#Auteur : Pour la page titre
+author: Nom
+#Titre de l'évaluation
+title: titre
+#Date
+date: date
 ########################################################
 # Argument à passer à la commande ligne, par exemple --question test1
 questions:

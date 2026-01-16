@@ -310,7 +310,7 @@ def render_question(q, version, seed=None, debug=False, usecache=False):
 
 # --------------------------------------------------------------------
 def build_exam(selected_questions, version, show_solutions, show_answers,
-               seed=None, template_file="templates/default.tex", mcq_layout="choices"):
+               seed=None, template_file="templates/default.tex", mcq_layout="choices",Title={}):
     """
     Création d'une version d'un test en LaTeX en utilisant Jinja2.
     
@@ -389,7 +389,9 @@ def build_exam(selected_questions, version, show_solutions, show_answers,
         else:
             # Sans groupement, on ajoute la question comme elle est.
             grouped_questions.append(q)
-
+    author=Title["author"]
+    title=Title["title"]
+    date=Title["date"]
     # ------------------------------------------------------------
     # Création du LaTeX
     # ------------------------------------------------------------
@@ -400,6 +402,9 @@ def build_exam(selected_questions, version, show_solutions, show_answers,
         show_answers=show_answers,
         show_solutions=show_solutions,
         mcq_layout=mcq_layout,
+        author=author,
+        title=title,
+        date=date
     )
 
     return tex
@@ -459,6 +464,10 @@ def main():
         )
     test_config = copy.deepcopy(config.get("questions", {}).get(subcategory, {}))
     selected = load_questions(test_config,seed)
+    author=config.get("author",{})
+    title=config.get("title",{})
+    date=config.get("date","\\today")
+    Title={"author":author,"title":title, "date":date}
 # --- Construction des versions ---
     for v in range(1, args.versions + 1):
         questions = selected[:]
@@ -478,6 +487,7 @@ def main():
             seed=seed,
             template_file="templates/default.tex",
             mcq_layout=mcq_layout,
+            Title=Title
         )
 
 

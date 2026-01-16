@@ -9,14 +9,22 @@
 \usepackage{amsmath, amssymb}
 \usepackage{graphicx}
 \usepackage{enumitem}
+\usepackage[french]{babel} %Pour la langue
+
+% Numéro de la version et du seed dans la dernière page
+\footer{\iflastpage{\tiny Seed: 73429 }}{}{\tiny Version : 1 }
+
+\title { Test - exemple }
+\author{ Jean-Sébastien Turcotte }
+\date { 12 janvier 2035 }
 
 \begin{document}
-%La ligne ci-dessous donne les informations permettant de reproduire une version spécifique.
-{\tiny Seed: 22616 \hfill Version 1}
 
+\maketitle
 \vspace{1em}
 
 \begin{questions}
+
 % On effectue une boucle pour chacune des questions faisant partie du test.
 
 
@@ -24,12 +32,12 @@
 
 
 %Texte de la question
-\question Trouver les solutions à l'équation $x^2 + 1x + 8 = 0$.
+\question Factoriser le polynôme $x^2 + 25x + 5^2$.
 
 %Vérification de la présence d'une image
 
 \begin{center}
-  \includegraphics[width=0.6\textwidth]{ ../figures/q1_variantev1_version1.png }
+  \includegraphics[width=0.6\textwidth]{ ../figures/q1_variantev3_version1.png }
 \end{center}
 
 %Type de question - vrai ou faux
@@ -50,7 +58,33 @@
 
 
 %Texte de la question
-\question Le déterminant d'une matrice triangulaire est égal au produit des éléments de sa diagonale.
+\question Résoudre $x$: $x^2 - 5x + 5 = 0$.
+
+%Vérification de la présence d'une image
+
+\begin{center}
+  \includegraphics[width=0.6\textwidth]{ ../figures/q1_variantev2_version1.png }
+\end{center}
+
+%Type de question - vrai ou faux
+
+\vspace{2\baselineskip}
+
+
+
+
+
+
+
+
+\vspace{1em}
+
+
+
+
+
+%Texte de la question
+\question Si un matrice $A$ est inversible, alors son déterminant est nul.
 
 %Vérification de la présence d'une image
 
@@ -89,11 +123,11 @@
   
 
   
-    \choice $1$
+    \choice $\tfrac{1}{4}$
   
 
   
-    \choice $\tfrac{1}{4}$
+    \choice $1$
   
 
 \end{choices}
@@ -122,15 +156,15 @@
 \begin{choices}
 
   
+    \choice $\cos x$
+  
+
+  
     \choice $-\sin x$
   
 
   
     \CorrectChoice $\sin x$
-  
-
-  
-    \choice $-\cos x$
   
 
 \end{choices}
@@ -159,7 +193,7 @@
 \begin{choices}
 
   
-    \choice $0$
+    \CorrectChoice un
   
 
   
