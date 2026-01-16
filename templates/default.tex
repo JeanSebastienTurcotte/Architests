@@ -1,3 +1,9 @@
+% Ceci est le canevas par défaut pour produire un test avec ArchiTests. Ce fichier n'est pas compilable. Il est plutôt appelé par le fichier 'builder.py' lors de la création des tests. À l'aide de Jinja les entrées de texte ci-dessous situés entre deux paires d'accolades sont remplacées par des variables créées par le générateur de tests. Les dépendances sont gardées au minimum pour assurer une plus grande compatibilité.
+
+% On utilise la classe 'exam' de LaTeX.
+
+% Le canevas utilise une liste 'questions' contenant des questions 'q' sous la forme de dictionnaire python. Chaque 'q' représente une représentation d'une question ou d'un groupe de sous questions. Elle contient tout le nécessaire pour être écrite par le compilateur LaTeX, soit le texte de la question, la réponse, la solution, le type de question (en ce moment 'open' pour question ouverte, 'tf' pour un vrai ou faux ou 'mcq' pour une question à choix multiples.), les images le cas échéant. Pour les questions à choix multiples, une liste pré mélangée contenant la ou les bonnes réponse ainsi qu'un choix de mauvaises réponses est passée.
+
 \documentclass[12pt]{exam}
 
 \usepackage{amsmath, amssymb}
@@ -5,26 +11,34 @@
 \usepackage{enumitem}
 
 \begin{document}
-
-{\small Seed: {{ seed }} \hfill Version {{ version }}}
+%La ligne ci-dessous donne les informations permettant de reproduire une version spécifique.
+{\tiny Seed: {{ seed }} \hfill Version {{ version }}}
 
 \vspace{1em}
 
 \begin{questions}
+% On effectue une boucle pour chacune des questions faisant partie du test.
 
 {% for q in questions %}
 
-% ==================================================
-% GROUPED QUESTIONS (parts)
-% ==================================================
+
 {% if q.grouping == "parts" %}
 
+% ==================================================
+% Question groupée en sous-questions à l'aide de 'parts'.
+% ==================================================
+
+%Texte de la question principale
 \question {{ q.group_text | default("") }}
 
 \begin{parts}
+%Boucle pour chacune des sous questions
 {% for subq in q.subquestions %}
 
+%Texte de la sous question
 \part {{ subq.question_fmt }}
+
+%Vérification de la présence d'une image
 
 {% if subq.figure_fmt %}
 \begin{center}
@@ -32,11 +46,14 @@
 \end{center}
 {% endif %}
 
+%Type de question - vrai ou faux
 {% if subq.type == "tf" %}
 \begin{itemize}[label={}]
   \item (A) True
   \item (B) False
 \end{itemize}
+
+%Type de question - choix de réponses
 
 {% elif subq.type == "mcq" %}
 \begin{ {{- mcq_layout -}} }
@@ -75,24 +92,25 @@
 \end{parts}
 
 % ==================================================
-% REGULAR QUESTIONS (no grouping)
+%  Question seule (pas de sous question)
 % ==================================================
 {% else %}
-
+%Texte de la question
 \question {{ q.question_fmt }}
 
+%Vérification de la présence d'une image
 {% if q.figure_fmt %}
 \begin{center}
   \includegraphics[width=0.6\textwidth]{ {{ q.figure_fmt }} }
 \end{center}
 {% endif %}
-
+%Type de question - vrai ou faux
 {% if q.type == "tf" %}
 \begin{itemize}[label={}]
   \item (A) True
   \item (B) False
 \end{itemize}
-
+%Type de question - choix de réponses
 {% elif q.type == "mcq" %}
 \begin{ {{- mcq_layout -}} }
 {% for opt in q.options %}

@@ -1,27 +1,26 @@
-id: q2   # Topic: Systems of linear equations
-type: open
+id: q4 # Nom de la question. Même id que le nom du fichier
+type: tf  #Type de question open | tf | mcq
+#Sujet: Propriétés des matrices
 
-variants:
-  - sub_id: v1   # Two equations, two variables
-    question: "Solve the system: $\\begin{cases} x + y = {{s}} \\\\ x - y = {{d}} \\end{cases}$"
-    answer: "$x = \\frac{{s}} + {{d}}}{2}, \\; y = \\frac{{s}} - {{d}}}{2}$"
-    generate_params: |
-      from random import randint
-      s = randint(4, 12)
-      d = randint(1, 5)
+variants:  #Différentes variantes de la question
+  - sub_id: v1 # Id de la variante
+   # Description : Déterminant et matrice triangulaire
+   ################################################
+   #Texte de la question. Utiliser '{{var}}' pour obtenir une variable aléatoire. 
+    question: "Le déterminant d'une matrice triangulaire est égal au produit des éléments de sa diagonale."
+    #Réponse : Facultatif
+    answer: true
 
-  - sub_id: v2   # Elimination method
-    question: "Solve for $x$ and $y$: $2x + 3y = {{m}}, \\\\ 4x - y = {{n}}$"
-    answer: "Using elimination, $x = \\frac{{m}} + 3{{n}}}{10}, \\; y = \\frac{2{{m}} - {{n}}}{10}$"
-    generate_params: |
-      from random import randint
-      m = randint(6, 20)
-      n = randint(3, 15)
+  - sub_id: v2
+    question: "Si un matrice $A$ est inversible, alors son déterminant est nul."
+    answer: false
 
-  - sub_id: v3   # Substitution method
-    question: "Solve the system: $y = 2x + {{c}}, \\\\ 3x + y = {{t}}$"
-    answer: "Substitute $y$: $3x + (2x + {{c}}) = {{t}} \\implies 5x = {{t}} - {{c}} \\implies x = \\frac{{t}} - {{c}}}{5}, \\; y = 2x + {{c}}$"
+  - sub_id: v3
+  #Avec une version aléatoire. Notez la fonction auxiliaire à charger.
     generate_params: |
-      from random import randint
-      c = randint(1, 6)
-      t = randint(10, 20)
+      load("helpers/tf_randomizer.sage") 
+      true_text = "La transposée d'une matrice symétrique est égale à elle-même."
+      false_text = "La transposée d'une matrice symétrique est égale au négatif de la matrice."
+      statement, answer = tf_randomizer(true_text, false_text)
+    question: "{{ statement }}"
+    answer: "{{ answer }}"

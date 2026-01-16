@@ -1,21 +1,30 @@
-id: q1   # Topic: Quadratic equations
-type: open
-
-variants:
-  - sub_id: v1   # Simple positive coefficients
-    question: "Find the TEST roots of the quadratic equation $x^2 + {{a}}x + {{b}} = 0$."
-    answer: "The roots are $x = \\frac{-{{a}} \\pm \\sqrt{{a}}^2 - 4{{b}}}{2}$."
+id: q1   # Nom de la question. Même id que le nom du fichier
+type: open  #Type de question open | tf | mcq
+#Sujet Quadratique
+variants:     #Différentes variantes de la question
+  - sub_id: v1   # Id de la variante
+   # Description : Quadratique avec a,b, >0
+   ################################################
+   #Texte de la question. Utiliser '{{var}}' pour obtenir une variable aléatoire. 
+    question: "Trouver les solutions à l'équation $x^2 + {{a}}x + {{b}} = 0$."
+    #Réponse : Facultatif
+    answer: "Les zéros sont  $x = \\frac{-{{a}} \\pm \\sqrt{{a}}^2 - 4{{b}}}{2}$."
+    #Solution: Facultatif
+    solution: "On utilise la formule quadratique ..."
+    #Génération des paramètres aléatoires. Ce bloc de code sera exécuté par le logiciel Sagemath et les variables ici créées pourront être appelées dans le texte, la réponse ou la solution de la question. À noter qu'il est préférable de ne pas faire faire de trop grand calculs.
     generate_params: |
       from random import randint
       a = randint(1, 6)
       b = randint(1, 10)
+    # Génération de graphique. La commande doit inclure une ligne `.save("{{filename}}")`. La variable {{filename}} est passé automatiquement dans le code du constructeur. 
     generate_figure: |
       p = plot(x^2 + {{a}}*x + {{b}}, (x,-10,10))
       p.save("{{filename}}")
 
-  - sub_id: v2   # Mixed sign coefficients
-    question: "Solve for $x$: $x^2 - {{a}}x + {{b}} = 0$."
-    answer: "The roots are $x = \\frac{{a}} \\pm \\sqrt{{a}}^2 - 4{{b}}}{2}$."
+  - sub_id: v2   
+  #Description: Quadratique avec les paramètres de signes inversés
+    question: "Résoudre $x$: $x^2 - {{a}}x + {{b}} = 0$."
+    answer: "Les solutions sont $x = \\frac{{a}} \\pm \\sqrt{{a}}^2 - 4{{b}}}{2}$."
     generate_params: |
       from random import randint
       a = randint(2, 8)
@@ -24,9 +33,10 @@ variants:
       p = plot(-x^2 - {{a}}*x + {{b}}, (x,-10,10))
       p.save("{{filename}}")
 
-  - sub_id: v3   # Perfect square trinomials
-    question: "Factor the quadratic $x^2 + 2{{k}}x + {{k}}^2$."
-    answer: "It factors as $(x + {{k}})^2$."
+  - sub_id: v3   
+  #Description: Trinôme carré parfait
+    question: "Factoriser le polynôme $x^2 + 2{{k}}x + {{k}}^2$."
+    answer: "La factorisation est $(x + {{k}})^2$."
     generate_params: |
       from random import randint
       k = randint(1, 5)

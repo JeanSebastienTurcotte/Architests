@@ -1,4 +1,5 @@
-# Makefile for quiz builder
+# Makefile 
+# Pas utilisé en ce moment
 
 PYTHON=python
 BUILDER=builder.py

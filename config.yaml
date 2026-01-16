@@ -1,10 +1,10 @@
-last_seed: 65877
+last_seed: 86542
 mcq_layout: choices
 questions:
   test1:
     q1:
       select: all
-      choose: all
+      choose: 1
     q2:
       select:
       - v1
@@ -12,37 +12,4 @@ questions:
       choose: 1
     q3:
       select: all
-      choose: 2
-  test2:
-    q3:
-      select: all
-      choose: 2
-    q2:
-      select:
-      - v1
-      - v2
-      - v3
-      choose: 2
-  test3:
-    q2:
-      select:
-      - v1
-      - v2
-      - v3
-      choose: 2
-      grouping: parts
-    q5:
-      select: all
-      choose: 2
-      grouping: none
-    q4:
-      select: all
-      choose: 2
-      grouping: parts
-      group_text: 'Answer True or False for each of the following statements:'
-    q6:
-      select: all
-      choose: 3
-      grouping: none
-      group_text: 'Choose the correct answer for each question below:'
-      n_wrong: 2
+      choose: all

@@ -1,3 +1,9 @@
+% Ceci est le canevas par défaut pour produire un test avec ArchiTests. Ce fichier n'est pas compilable. Il est plutôt appelé par le fichier 'builder.py' lors de la création des tests. À l'aide de Jinja les entrées de texte ci-dessous situés entre deux paires d'accolades sont remplacées par des variables créées par le générateur de tests. Les dépendances sont gardées au minimum pour assurer une plus grande compatibilité.
+
+% On utilise la classe 'exam' de LaTeX.
+
+% Le canevas utilise une liste 'questions' contenant des questions 'q' sous la forme de dictionnaire python. Chaque 'q' représente une représentation d'une question ou d'un groupe de sous questions. Elle contient tout le nécessaire pour être écrite par le compilateur LaTeX, soit le texte de la question, la réponse, la solution, le type de question (en ce moment 'open' pour question ouverte, 'tf' pour un vrai ou faux ou 'mcq' pour une question à choix multiples.), les images le cas échéant. Pour les questions à choix multiples, une liste pré mélangée contenant la ou les bonnes réponse ainsi qu'un choix de mauvaises réponses est passée.
+
 \documentclass[12pt]{exam}
 
 \usepackage{amsmath, amssymb}
@@ -5,29 +11,24 @@
 \usepackage{enumitem}
 
 \begin{document}
-
-{\small Seed: 65877 \hfill Version 3}
+%La ligne ci-dessous donne les informations permettant de reproduire une version spécifique.
+{\tiny Seed: 1224 \hfill Version 3}
 
 \vspace{1em}
 
 \begin{questions}
+% On effectue une boucle pour chacune des questions faisant partie du test.
 
 
 
-% ==================================================
-% GROUPED QUESTIONS (parts)
-% ==================================================
 
 
-\question 
+%Texte de la question
+\question Solve the system: $\begin{cases} x + y = 6 \\ x - y = 2 \end{cases}$
 
-\begin{parts}
+%Vérification de la présence d'une image
 
-
-\part Solve the system: $y = 2x + 2, \\ 3x + y = 20$
-
-
-
+%Type de question - vrai ou faux
 
 \vspace{2\baselineskip}
 
@@ -38,10 +39,22 @@
 
 
 
-\part Solve for $x$ and $y$: $2x + 3y = 15, \\ 4x - y = 8$
+\vspace{1em}
 
 
 
+
+
+%Texte de la question
+\question Solve for $x$: $x^2 - 3x + 4 = 0$.
+
+%Vérification de la présence d'une image
+
+\begin{center}
+  \includegraphics[width=0.6\textwidth]{ ../figures/q1_variantev2_version3.png }
+\end{center}
+
+%Type de question - vrai ou faux
 
 \vspace{2\baselineskip}
 
@@ -51,32 +64,21 @@
 
 
 
-\end{parts}
-
-% ==================================================
-% REGULAR QUESTIONS (no grouping)
-% ==================================================
-
 
 \vspace{1em}
 
 
 
-% ==================================================
-% GROUPED QUESTIONS (parts)
-% ==================================================
 
 
-\question The determinant of a diagonal matrix equals the sum of its diagonal entries. from Q5
+%Texte de la question
+\question NO RANDOM HERE Differentiate the function $f(x) = x^3 + 5x^2$.
 
+%Vérification de la présence d'une image
 
+%Type de question - vrai ou faux
 
-
-\begin{itemize}[label={}]
-  \item (A) True
-  \item (B) False
-\end{itemize}
-
+\vspace{2\baselineskip}
 
 
 
@@ -89,21 +91,20 @@
 
 
 
-% ==================================================
-% GROUPED QUESTIONS (parts)
-% ==================================================
 
 
-\question If two matrices $A$ and $B$ commute, then $AB = BA$.
+%Texte de la question
+\question Find the TEST roots of the quadratic equation $x^2 + 1x + 9 = 0$.
 
+%Vérification de la présence d'une image
 
+\begin{center}
+  \includegraphics[width=0.6\textwidth]{ ../figures/q1_variantev1_version3.png }
+\end{center}
 
+%Type de question - vrai ou faux
 
-\begin{itemize}[label={}]
-  \item (A) True
-  \item (B) False
-\end{itemize}
-
+\vspace{2\baselineskip}
 
 
 
@@ -116,88 +117,20 @@
 
 
 
-% ==================================================
-% GROUPED QUESTIONS (parts)
-% ==================================================
 
 
-\question Answer True or False for each of the following statements:
+%Texte de la question
+\question Factor the quadratic $x^2 + 22x + 2^2$.
 
-\begin{parts}
+%Vérification de la présence d'une image
 
+\begin{center}
+  \includegraphics[width=0.6\textwidth]{ ../figures/q1_variantev3_version3.png }
+\end{center}
 
-\part The transpose of a symmetric matrix is equal to itself.
+%Type de question - vrai ou faux
 
-
-
-
-\begin{itemize}[label={}]
-  \item (A) True
-  \item (B) False
-\end{itemize}
-
-
-
-
-
-
-
-
-
-\part The determinant of a triangular matrix is equal to the product of its diagonal entries.
-
-
-
-
-\begin{itemize}[label={}]
-  \item (A) True
-  \item (B) False
-\end{itemize}
-
-
-
-
-
-
-
-
-\end{parts}
-
-% ==================================================
-% REGULAR QUESTIONS (no grouping)
-% ==================================================
-
-
-\vspace{1em}
-
-
-
-% ==================================================
-% GROUPED QUESTIONS (parts)
-% ==================================================
-
-
-\question Which of the following represents an antiderivative of \( e^{2x} \)?
-
-
-
-
-\begin{choices}
-
-  
-    \CorrectChoice $\tfrac{1}{2} e^{2x}$
-  
-
-  
-    \choice $x e^{2x}$
-  
-
-  
-    \choice $e^{x^2}$
-  
-
-\end{choices}
-
+\vspace{2\baselineskip}
 
 
 
@@ -210,70 +143,16 @@
 
 
 
-% ==================================================
-% GROUPED QUESTIONS (parts)
-% ==================================================
 
 
-\question Donner tous les choix qui sont 1.
+%Texte de la question
+\question NO RANDOM HERE Differentiate $f(x) = 7x^4 - 3x + 5$.
 
+%Vérification de la présence d'une image
 
+%Type de question - vrai ou faux
 
-
-\begin{choices}
-
-  
-    \choice $0$
-  
-
-  
-    \CorrectChoice [$1$,un,$e^0$]
-  
-
-  
-    \choice $\tfrac{\pi}{2}$
-  
-
-\end{choices}
-
-
-
-
-
-
-
-
-
-\vspace{1em}
-
-
-
-% ==================================================
-% GROUPED QUESTIONS (parts)
-% ==================================================
-
-
-\question If \( \int_0^a f(x)\,dx = 5 \), what is \( \int_a^0 f(x)\,dx \)?
-
-
-
-
-\begin{choices}
-
-  
-    \choice $5$
-  
-
-  
-    \CorrectChoice $-5$
-  
-
-  
-    \choice $0$
-  
-
-\end{choices}
-
+\vspace{2\baselineskip}
 
 
 

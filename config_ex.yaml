@@ -1,0 +1,43 @@
+#Dernier seed utilisé
+last_seed: 50843  
+#Choix de mise en page pour les choix de réponses. Les versions onepar donnent un choix par ligne.
+mcq_layout: choices
+# choices | oneparchoices | checkboxes | oneparcheckboxes
+########################################################
+# Argument à passer à la commande ligne, par exemple --question test1
+questions:
+  test1:  #Nom des tests appelés par la commande
+    q1:  #Question à inclure. Le nom ici doit correspondre au champ 'id' d'une question dans le dossier 'questions'
+      select: all  #Choix des variantes à utiliser. Liste des variantes ou 'all'
+      choose: all  # Nombre de variantes à inclure dans le test. Entier strictement positif ou 'all'.
+    q2:
+      select: #Exemple de variantes limitées à certaines. Le nom des variantes doit correspondre à une entrée d'un champ 'sub_id' d'une question.
+      - v1
+      - v2
+      choose: 1
+    q3:
+      select: all
+      choose: 2
+  test2:
+    q2:
+      select:
+      - v1
+      - v2
+      - v3
+      choose: 2
+      grouping: parts  #Pour décider de grouper les 2 variantes choisies sous une seule question.
+    q5:
+      select: all
+      choose: 2
+      grouping: none  #On spécifie qu'il n'y a pas de grouping. C'est aussi l'option par défaut.
+    q4:
+      select: all
+      choose: 2
+      grouping: parts
+      group_text: 'Answer True or False for each of the following statements:'  #On ajoute un texte à la question, au-dessus des variantes.
+    q6:
+      select: all
+      choose: 3
+      grouping: none
+      group_text: 'Choose the correct answer for each question below:'
+      n_wrong: 2 #Le nombre de mauvaises réponses à inclure. Utile seulement pour une question à choix multiples (sans effet sinon).
