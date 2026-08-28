@@ -11,7 +11,7 @@ variants:     #Différentes variantes de la question
     answer: "Les zéros sont  $x = \\frac{-{{a}} \\pm \\sqrt{{a}}^2 - 4{{b}}}{2}$."
     #Solution: Facultatif
     solution: "On utilise la formule quadratique ..."
-    #Génération des paramètres aléatoires. Ce bloc de code sera exécuté par le logiciel Sagemath et les variables ici créées pourront être appelées dans le texte, la réponse ou la solution de la question. À noter qu'il est préférable de ne pas faire faire de trop grand calculs.
+    #Génération des paramètres aléatoires. Ce bloc de code sera exécuté par le logiciel Sagemath et les variables ici créées pourront être appelées dans le texte, la réponse ou la solution de la question. À noter qu'il est préférable de ne pas faire faire de trop grands calculs.
     generate_params: |
       from random import randint
       a = randint(1, 6)
